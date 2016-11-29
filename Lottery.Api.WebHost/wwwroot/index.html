@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+        .is-selected {
+            color: #FFF;
+            background-color: forestgreen;
+        }
+    </style>
+</head>
+<body ng-app="lottery">
+    <h2>Create Lottery Draw</h2>
+    <form ng-controller="drawController as vm">
+        <label>Name <input type="text" ng-model="vm.model.name" required /></label><br />
+        <label>Description <input type="text" ng-model="vm.model.description" required /></label><br />
+        <label>Date of Draw <input type="date" ng-model="vm.model.drawDate" required /></label><br />
+        <button type="submit" ng-click="vm.createDraw()">Create Draw</button>
+    </form>
+    <br/><br/>
+
+    <div data-ng-controller="winningNumbersController as vm">
+        <h2>Find Lottery Draw</h2>
+        <form>
+            <label>Draw Date <input type="date" ng-model="vm.drawDate" /></label>
+            <button type="submit" ng-click="vm.findDrawByDate()">Search</button>
+        </form>
+        <br /><br />
+        <div data-ng-if="vm.model">
+            <form>
+                <label>Name {{vm.model.name}}</label><br />
+                <label>Description {{vm.model.description}}</label><br />
+                <label>Date of Draw {{vm.model.drawDate}}</label><br />
+                <h3>Primary Numbers - {{vm.model.winningPrimaryNumbers.length }} of {{ vm.model.totalAmountOfPrimaryNumbers }}</h3>
+                <button ng-repeat="n in vm.model.primaryNumbers" type="button" ng-class="{'is-selected': n.isSelected}" ng-click="vm.selectPrimary(n)">{{n.value}}</button>
+                <h3>Secondary Numbers - {{vm.model.winningSecondaryNumbers.length }} of {{ vm.model.totalAmountOfSecondaryNumbers }}</h3>
+                <button ng-repeat="n in vm.model.secondaryNumbers" type="button" ng-class="{'is-selected': n.isSelected}" ng-click="vm.selectSecondary(n)">{{n.value}}</button>
+                <br/><br />
+                <button type="submit" ng-click="vm.specifyWinningNumbers()" ng-show="vm.canSubmit">Save Winning Numbers</button>
+            </form>
+        </div>
+    </div>
+    <script src="vendor/angular.min.js"></script>
+    <script src="scripts/lottery.app.js"></script>
+    <script src="scripts/lottery.service.js"></script>
+    <script src="scripts/lottery.drawController.js"></script>
+    <script src="scripts/lottery.winningNumbersController.js"></script>
+</body>
+</html>
