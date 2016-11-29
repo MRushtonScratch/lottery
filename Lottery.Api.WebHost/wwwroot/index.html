@@ -12,11 +12,11 @@
 </head>
 <body ng-app="lottery">
     <h2>Create Lottery Draw</h2>
-    <form ng-controller="drawController as vm">
+    <form ng-controller="drawController as vm" name="createDrawForm">
         <label>Name <input type="text" ng-model="vm.model.name" required /></label><br />
         <label>Description <input type="text" ng-model="vm.model.description" required /></label><br />
         <label>Date of Draw <input type="date" ng-model="vm.model.drawDate" required /></label><br />
-        <button type="submit" ng-click="vm.createDraw()">Create Draw</button>
+        <button type="submit" ng-click="vm.createDraw()" ng-disabled="!createDrawForm.$valid">Create Draw</button>
     </form>
     <br/><br/>
 

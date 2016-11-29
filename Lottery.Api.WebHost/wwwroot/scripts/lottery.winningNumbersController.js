@@ -37,7 +37,8 @@
         vm.specifyWinningNumbers = function () {
             lotterySvc.specifyWinningNumbers(vm.model).then(function () {
                 alert('Winning Numbers Saved');
-                vm.model = {};
+                vm.model = null;
+                vm.drawDate = null;
             }, lotterySvc.handleError);  
         }
 
